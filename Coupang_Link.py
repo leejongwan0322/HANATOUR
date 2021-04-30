@@ -14,6 +14,7 @@ def Coupang_link(access_key, secret_key, link):
     print("결과: 아래 URL을 복사하여 이용하세요.")
     print(get_short_url(AD_LINK["data"][0]['landingUrl']))
     # print(get_short_url('http://sp.moyeola.com/vip.php?method=' + parse.quote(AD_LINK["data"][0]['landingUrl'])))
+    # print(get_short_url(link))
 
 def get_short_url(URL):
     client_id = "BvkK2jIhEkDWB3RFzoqn"
@@ -67,9 +68,10 @@ def Get_CoupangAPI_Deeplink(GET_ACCESS_KEY, GET_SECRET_KEY,REQUEST_URL):
 
 Coupang_link('f367c021-7514-463c-b8c2-44f1d9031a4b',
              '813ea4854bca9a18365fae579c170cb980e9dda4',
-             'https://www.coupang.com/np/search?q=%ED%9C%B4%EB%8C%80%ED%8F%B0&brand=&offerCondition=&filter=&availableDeliveryFilter=&filterType=rocket_wow&isPriceRange=false&priceRange=&minPrice=&maxPrice=&page=1&trcid=&traid=&filterSetByUser=true&channel=user&backgroundColor=&component=178155&rating=0&sorter=scoreDesc&listSize=36')
+             'https://www.coupang.com/np/search?component=&q=%EC%86%A1%EC%9D%B4%EB%B2%84%EC%84%AF&channel=user')
 
 # http://me2.do/xy2AhDjC #애플
 # http://me2.do/5lop26SJ 하이뮨 셀렉스
 # https://pages.coupang.com/p/15921
 # http://me2.do/FN2qlqCg 휴대폰
+

@@ -17,27 +17,30 @@ movies_df['genres'] = movies_df['genres'].apply(literal_eval)
 movies_df['keywords'] = movies_df['keywords'].apply(literal_eval)
 movies_df['genres'] = movies_df['genres'].apply(lambda x : [y['name'] for y in x])
 movies_df['keywords'] = movies_df['keywords'].apply(lambda x : [y['name'] for y in x])
-# print(movies_df['genres'].head(1))
+print(movies_df['genres'].head(2))
 # print(movies_df['keywords'].head(1))
 
 from sklearn.feature_extraction.text import CountVectorizer
 
 #CountVectorizer를 적용하기 위해 공백문자로 word단위가 구분되는 문자열로 변환.
 movies_df['generes_literal'] = movies_df['genres'].apply(lambda x :  (' ').join(x))
-# print(movies_df['generes_literal'].head(10))
+print('--check--')
+print(movies_df['generes_literal'].head(1))
+print(movies_df['generes_literal'])
 count_vect = CountVectorizer(min_df=0, ngram_range=(1,2))
 genre_mat = count_vect.fit_transform(movies_df['generes_literal'])
-# print(genre_mat)
+exit()
+print(genre_mat)
 # print(genre_mat.shape)
 
 from sklearn.metrics.pairwise import cosine_similarity
 
 genre_sim = cosine_similarity(genre_mat, genre_mat)
 # print(genre_sim.shape)
-# print(genre_sim[:1])
+print(genre_sim[:1])
 
 genre_sim_sorted_ind = genre_sim.argsort()[:,::-1]
-# print(genre_sim_sorted_ind[:1])
+print(genre_sim_sorted_ind[:1])
 
 def find_sim_movie(df, sorted_ind, title_name, top_n=10):
     #인자로 입력된 movies_df DataFrame에서 'title'칼럼이 입력된 title_name값인 DataFrame 추출
@@ -55,10 +58,10 @@ def find_sim_movie(df, sorted_ind, title_name, top_n=10):
 
     return df.iloc[similar_indexes]
 
-# similar_movies = find_sim_movie(movies_df, genre_sim_sorted_ind, 'The Godfather', 10)
-# print(similar_movies.info())
-# print(similar_movies)
-# print(similar_movies[['title', 'vote_count', 'vote_average']])
+similar_movies = find_sim_movie(movies_df, genre_sim_sorted_ind, 'The Godfather', 10)
+print(similar_movies.info())
+print(similar_movies)
+print(similar_movies[['title', 'vote_count', 'vote_average']])
 
 # print(movies_df[['title', 'vote_count', 'vote_average']].sort_values('vote_average', ascending=False)[:10])
 
@@ -74,12 +77,12 @@ def weighted_vote_average(record):
 
 movies_df['weighted_vote'] = movies.apply(weighted_vote_average, axis=1)
 movies_df[['title', 'weighted_vote', 'vote_average', 'vote_count']].sort_values('weighted_vote', ascending=False)[:10]
-print(movies_df['title'].head(100))
+print(movies_df['weighted_vote'].head(100))
 
 def find_sim_movie_weight(df, sorted_ind, title_name, top_n=10):
     #인자로 입력된 movies_df DataFrame에서 'title'칼럼이 입력된 title_name값인 DataFrame 추출
     title_movie = df[df['title'] == title_name]
-    print(title_movie)
+    # print(title_movie)
     title_index = title_movie.index.values
 
     #top_n의 2배에 해당하는 장르 유사성이 높은 인덱스 추출
@@ -88,7 +91,6 @@ def find_sim_movie_weight(df, sorted_ind, title_name, top_n=10):
 
     #기준 영화 인덱스는 제외
     similar_indexes = similar_indexes[similar_indexes != title_index]
-
 
     #top_n의 2배에 해당하는 후보군에서 weight_vote가 노은 순으로 top_n만큼 추출
     return df.iloc[similar_indexes].sort_values('weighted_vote', ascending=False)[:top_n]

@@ -82,17 +82,55 @@ morphed_input = rhinoMorph.onlyMorph_list(rn, new_input, pos=['NNG', 'NNP', 'VV'
 morphed_input = ' '.join(morphed_input)                     # 한 개의 문자열로 만들기
 inputdata.append(morphed_input)                               # 분석 결과를 리스트로 만들기
 X_input = vect.transform(inputdata)
-print(float(grid.predict(X_input)))
+# print(float(grid.predict(X_input)))
 result = grid.predict(X_input) # 0은 부정,1은 긍정
-print(result)
-print(type(result))
-if result == 0.0:
-    print("부정적인 글입니다")
-else:
-    print("긍정적인 글입니다")
+# print(result)
+# print(type(result))
+# if result == 0.0:
+#     print("부정적인 글입니다")
+# else:
+#     print("긍정적인 글입니다")
 
 
-new_input = '식당은 두고두고 생각날 정도로 인상적임. 오래된 파리역사를 잘 살러서 멋진 분위기를 연출했으며, 주변의 다른 호텔 식당보다 맛이 훌륭함. 밸런스 프로그램탓인지 우리 부부 모두 아침 한 끼만 먹어도 하루종일 배가 고프지 않음.'
+# new_input = '식당은 두고두고 생각날 정도로 인상적임. 오래된 파리역사를 잘 살러서 멋진 분위기를 연출했으며, 주변의 다른 호텔 식당보다 맛이 훌륭함. 밸런스 프로그램탓인지 우리 부부 모두 아침 한 끼만 먹어도 하루종일 배가 고프지 않음.'
+#
+# # 입력 데이터 형태소 분석하기
+# inputdata = []
+# morphed_input = rhinoMorph.onlyMorph_list(rn, new_input, pos=['NNG', 'NNP', 'VV', 'VA', 'XR', 'IC', 'MM', 'MAG', 'MAJ'])
+# morphed_input = ' '.join(morphed_input)                     # 한 개의 문자열로 만들기
+# inputdata.append(morphed_input)                               # 분석 결과를 리스트로 만들기
+# X_input = vect.transform(inputdata)
+# print(float(grid.predict(X_input)))
+# result = grid.predict(X_input) # 0은 부정,1은 긍정
+# if result == 0:
+#     print("부정적인 글입니다")
+# else:
+#     print("긍정적인 글입니다")
+
+# new_input = '뷰방 예약했는데 이상한 다락방 줘서 첫날부터 기분 잡치고 다음날부터 좋은방 준다고해서 기대했더니 뷰방보다 좋지도 않음...'
+#
+# # 입력 데이터 형태소 분석하기
+# inputdata = []
+# morphed_input = rhinoMorph.onlyMorph_list(rn, new_input, pos=['NNG', 'NNP', 'VV', 'VA', 'XR', 'IC', 'MM', 'MAG', 'MAJ'])
+# morphed_input = ' '.join(morphed_input)                     # 한 개의 문자열로 만들기
+# inputdata.append(morphed_input)                               # 분석 결과를 리스트로 만들기
+# X_input = vect.transform(inputdata)
+# print(float(grid.predict(X_input)))
+# result = grid.predict(X_input) # 0은 부정,1은 긍정
+
+
+# new_input = '작년에 방문햇늘때 만족스러워서 또 방문을 햇는데이번엔 최악이엿어요일단 방음이 안돼요새벽에 여자들 웃음소리에 잠을 못잣네요'
+#
+# # 입력 데이터 형태소 분석하기
+# inputdata = []
+# morphed_input = rhinoMorph.onlyMorph_list(rn, new_input, pos=['NNG', 'NNP', 'VV', 'VA', 'XR', 'IC', 'MM', 'MAG', 'MAJ'])
+# morphed_input = ' '.join(morphed_input)                     # 한 개의 문자열로 만들기
+# inputdata.append(morphed_input)                               # 분석 결과를 리스트로 만들기
+# X_input = vect.transform(inputdata)
+# print(float(grid.predict(X_input)))
+# result = grid.predict(X_input) # 0은 부정,1은 긍정
+
+new_input = '작년에 방문햇늘때 만족스러워서 또 방문을 햇는데 이번엔 최악이엿어요. 일단 방음이 안돼요새벽에 여자들 웃음소리에 잠을 못잣네요'
 
 # 입력 데이터 형태소 분석하기
 inputdata = []
@@ -102,22 +140,8 @@ inputdata.append(morphed_input)                               # 분석 결과를
 X_input = vect.transform(inputdata)
 print(float(grid.predict(X_input)))
 result = grid.predict(X_input) # 0은 부정,1은 긍정
-if result == 0:
-    print("부정적인 글입니다")
-else:
-    print("긍정적인 글입니다")
 
-new_input = '뷰방 예약했는데 이상한 다락방 줘서 첫날부터 기분 잡치고 다음날부터 좋은방 준다고해서 기대했더니 뷰방보다 좋지도 않음...'
-
-# 입력 데이터 형태소 분석하기
-inputdata = []
-morphed_input = rhinoMorph.onlyMorph_list(rn, new_input, pos=['NNG', 'NNP', 'VV', 'VA', 'XR', 'IC', 'MM', 'MAG', 'MAJ'])
-morphed_input = ' '.join(morphed_input)                     # 한 개의 문자열로 만들기
-inputdata.append(morphed_input)                               # 분석 결과를 리스트로 만들기
-X_input = vect.transform(inputdata)
-print(float(grid.predict(X_input)))
-result = grid.predict(X_input) # 0은 부정,1은 긍정
-if result == 0:
-    print("부정적인 글입니다")
-else:
-    print("긍정적인 글입니다")
+# if result == 0.0:
+#     print("부정적인 글입니다")
+# else:
+#     print("긍정적인 글입니다")
