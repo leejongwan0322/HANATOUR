@@ -1,45 +1,58 @@
 import bs4
 import re
+import time
 from urllib import parse
 import requests
+from selenium import webdriver
 
-LIST_content = []
-LIST_title = []
-LIST_topic = []
+def Get_html_from_Selenium(url):
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
 
-for i in range(1, 2):
-    print("page --:", i)
-    url = 'https://kin.naver.com/search/list.nhn?query=%EB%8C%80%ED%95%99%EC%83%9D%EC%A7%84%EB%A1%9C%EC%83%81%EB%8B%B4&page=' + str(i)
+    #https://chromedriver.chromium.org/downloads
+    driver = webdriver.Chrome('D:\Chromdriver\chromedriver.exe', options=options)
+    driver.get(url)
 
-    req = requests.get(url)
-    bsObj = bs4.BeautifulSoup(req.content, "html.parser")
-    nk_list = bsObj.find('ul', {"class":"basic1"}).find_all('li')
+    return driver
 
-    for nk_detail in nk_list:
-        nk_detail_url = nk_detail.find('a', {"class":"_nclicks:kin.txt _searchListTitleAnchor"})['href']
+url = 'https://search.naver.com/search.naver?where=view&sm=tab_jum&query=%EA%B0%80%EC%83%81%ED%99%94%ED%8F%90'
+target_driver = Get_html_from_Selenium(url)
+target_bsObj = bs4.BeautifulSoup(target_driver.page_source, "html.parser")
+target_list = target_bsObj.find_all('div', {'class','total_wrap api_ani_send'})
 
-        req_detail = requests.get(nk_detail_url)
-        bsObj_detail = bs4.BeautifulSoup(req_detail.content, "html.parser")
-        nk_title = bsObj_detail.find('div', {"class": "title"}).get_text().strip()
+for target in target_list:
+    url = target.a.attrs['data-url']
+    if 'cafe.naver' in url:
+        continue
 
-        nk_content = ""
-        if bsObj_detail.find('div', {"class": "c-heading__content"}) is not None:
-            nk_content = bsObj_detail.find('div', {"class": "c-heading__content"}).get_text().strip()
-        else:
-            nk_content = ""
+    print(url)
+    blog_driver = Get_html_from_Selenium(url)
+    blog_driver.switch_to.frame('mainFrame')
 
-        # print("content: ",nk_content)
+    bsObj = bs4.BeautifulSoup(blog_driver.page_source, "html.parser")
 
-        nk_topic = bsObj_detail.find('a', {"class": "tag-list__item tag-list__item--category"}).get_text().strip().replace('태그 디렉터리Ξ ', '')
-        # print(nk_topic)
+    tit = bsObj.find("meta", {"property": "og:title"}).attrs['content']
+    title = tit
+    print(tit)
 
-        LIST_title.append(nk_title)
-        LIST_content.append(nk_content)
-        LIST_topic.append(nk_topic)
+    overlays = ".nick"
+    nick = blog_driver.find_element_by_css_selector(overlays)
+    nickname = nick.text
+    # print(nickname)
 
+    # overlays = '.se-component se-text se-l-default'
+    # contents = blog_driver.find_element_by_css_selector(overlays)
+    # content_list = []
+    # for content in contents:
+    #     content_list.append(content.text)
+    #
+    # content_str = ' '.join(content_list)
 
-import pandas as pd
-df = pd.DataFrame(list(zip(LIST_title, LIST_content, LIST_topic)), columns = ['Title', 'Content', 'Topic'])
-print(df.head())
+    content_list = []
+    for content in bsObj.find_all('p', {'class': re.compile('se-text-paragraph')}):
+        content_list.append(content.text)
 
-df.to_csv("C:\\Users\\HANA\\Downloads\\df.csv",index=True, encoding='utf-8-sig')
+    content_str = ' '.join(content_list).replace(title, '')
+    print(content_str)
+
+    # print(title, nickname, content_str)

@@ -2,8 +2,7 @@ import bs4
 import re
 from urllib import parse
 import requests
-
-LIST_content = []
+_content = []
 LIST_title = []
 LIST_topic = []
 
@@ -37,9 +36,9 @@ for i in range(1, 2):
         LIST_content.append(nk_content)
         LIST_topic.append(nk_topic)
 
-
 import pandas as pd
 df = pd.DataFrame(list(zip(LIST_title, LIST_content, LIST_topic)), columns = ['Title', 'Content', 'Topic'])
 print(df.head())
 
 df.to_csv("C:\\Users\\HANA\\Downloads\\df.csv",index=True, encoding='utf-8-sig')
+LIST
