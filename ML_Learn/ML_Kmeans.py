@@ -57,5 +57,5 @@ plt.xlabel('PCA 1')
 plt.ylabel('PCA 2')
 plt.title('3 Cluster Visualization by 2 PCA Components')
 print(time.process_time())
-# plt.show()
+plt.show()
 

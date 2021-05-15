@@ -14,4 +14,4 @@ clusterDF['target'] = y
 
 plt.scatter(X[:,0],X[:,1],c=y)
 plt.colorbar()
-# plt.show()
+plt.show()
