@@ -5,6 +5,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import numpy as np
 import Common_Module.CMPlot as CMPlot
+import Common_Module.CMStat as CMStat
 import pandas as pd
 import time
 
@@ -34,7 +35,7 @@ iris_result = irisDF.groupby(['target','cluster'])['sepal_length'].count()
 print(iris_result)
 
 # CMPlot.visualize_elbowmethod(irisDF)
-CMPlot.visualize_silhouette_layer(irisDF)
+# CMPlot.visualize_silhouette_layer(irisDF)
 
 pca = PCA(n_components=2)
 pca_transformed = pca.fit_transform(iris_data.data)

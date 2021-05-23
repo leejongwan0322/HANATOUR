@@ -10,6 +10,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.linear_model import Lasso, ElasticNet, Ridge
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import Binarizer
 
 class FaissKMeans:
     def __init__(self, n_clusters=8, n_init=10, max_iter=300):
@@ -80,6 +81,16 @@ def fillna(df):
     df['Embarked'].fillna('N', inplace=True)
     df['Fare'].fillna(0, inplace=True)
     return df
+
+# 평가지표를 조사하기 위한 새로운 함수 생성
+def get_eval_by_threshold(y_test, pred_proba_c1, thresholds):
+    #thresholds list 객체 내의 값을 iteration 하면서 평가 수행
+    for custom_threshold in thresholds:
+        binarizer = Binarizer(threshold=custom_threshold).fit(pred_proba_c1)
+        custom_predict = binarizer.transform(pred_proba_c1)
+        print('\n임계값: ', custom_threshold)
+        get_clf_eval(y_test, custom_predict)
+
 
 ## 머신러닝에 불필요한 피처 제거
 def drop_features(df):

@@ -6,6 +6,7 @@ import numpy as np
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_samples, silhouette_score
+from sklearn.metrics import f1_score, confusion_matrix, precision_recall_curve, roc_curve
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
@@ -167,4 +168,26 @@ def visualize_silhouette_layer(data, param_init='random', param_n_init=10, param
     plt.figure()
     sns.heatmap(pivot_km, annot=True, linewidths=.5, fmt='.3f', cmap=sns.cm._rocket_lut)
     plt.tight_layout()
+    plt.show()
+
+
+def precision_recall_curve_plot(y_test, pred_proba_c1):
+    # threshold ndarray와 이 threshold에 따른 정밀도, 재현율 ndarray 추출
+    precisions, recalls, thresholds = precision_recall_curve(y_test, pred_proba_c1)
+
+    # X축을 threshold값으로, Y축은 정밀도, 재현율 값으로 각각 Plot 수행, 정밀도는 점선으로 표시
+    plt.figure(figsize=(8, 6))
+    threshold_boundary = thresholds.shape[0]
+    plt.plot(thresholds, precisions[0:threshold_boundary], linestyle='--', label='precision')
+    plt.plot(thresholds, recalls[0:threshold_boundary], label='recall')
+
+    # threshold 값 X축의 scale을 0.1 단위로 변경
+    start, end = plt.xlim()
+    plt.xticks(np.round(np.arange(start, end, 0.1), 2))
+
+    # X, Y축 label과 legend, grid 설정
+    plt.xlabel('Threshold value')
+    plt.ylabel('Precision and Recall value')
+    plt.legend()
+    plt.grid()
     plt.show()

@@ -17,32 +17,42 @@ import numpy as np
 #linspace(1+2i,10+10i,8)
 #1+2i와 10+10i 사이에 균일한 간격의 점 8개의 복소수로 구성된 벡터를 만듭니다.
 x = np.linspace(0,10,100)
+print(x)
+
 y = x**2
-# plt.plot(x,y)
-# plt.title('First Plot')
-# plt.xlabel('x Label')
-# plt.ylabel('y label')
-# plt.show()
+plt.plot(x,y)
+plt.title('First Plot')
+plt.xlabel('x Label')
+plt.ylabel('y label')
+plt.show()
 
 
 #Multi Plot
 #subplot(m,n,p)는 현재 Figure를 m×n 그리드로 나누고, p로 지정된 위치에 좌표축을 만듭니다.
-# plt.subplot(1,2,1)
-# plt.plot(x,y, 'red')
+plt.subplot(1,3,1)
+plt.plot(x,y, 'red')
 
-# plt.subplot(1,2,2)
-# plt.plot(y,x, 'green')
-# plt.show()
+plt.subplot(1,3,2)
+plt.plot(y,x, 'green')
+
+plt.subplot(1,3,3)
+plt.plot(y,x, 'green')
+
+plt.show()
 
 #2. Object oriented Interface: This is the best way to create plots.
 # axes1과 같은 경우 0.1, 0.1, 0.8, 0.8이라고 작성이 되어있는데 ,
 # 첫 0.1은 이미지의 x축의 위치, 두번째 0.1은 이미지의 y축의 시작위치, 세번째 0.8은 이미지의 가로길이,
 # 네번째 0.8은 높이를 의미한다.0~1까지 값을 입력할 수 있으며 모두 상대적인 길이이다.
-# fig = plt.figure()
-# ax = fig.add_axes([0.1, 0.2, 0.8, 0.9])
-# ax.plot(x, y, 'purple')
-# plt.show()
+fig = plt.figure()
+ax = fig.add_axes([0.1, 0.2, 0.8, 0.9])
+ax.plot(x, y, 'purple')
+plt.show()
 
+#fig.add_axes함수
+#이 함수는 각각의 위치를 지정하는 함수다.
+#axes1과 같은 경우 0.1, 0.1, 0.8, 0.8이라고 작성이 되어있는데 , 첫 0.1은 이미지의 x축의 위치, 두번째 0.1은 이미지의 y축의 시작위치, 세번째 0.8은 이미지의 가로길이, 네번째 0.8은 높이를 의미한다.
+# 0~1까지 값을 입력할 수 있으며 모두 상대적인 길이이다.
 # fig = plt.figure()
 # ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.8])
 # ax2 = fig.add_axes([0.2, 0.5, 0.4, 0.3])
@@ -53,6 +63,7 @@ y = x**2
 # fig, axes = plt.subplots(nrows=3, ncols=3)
 # plt.show()
 
+# tight_layout 여백 조정
 # fig, axes = plt.subplots(nrows=3, ncols=3)
 # plt.tight_layout()
 # plt.show()
@@ -63,6 +74,7 @@ y = x**2
 # plt.tight_layout()
 # plt.show()
 
+#dpi 고해상도
 # fig = plt.figure(figsize=(8,2), dpi=100)
 # ax = fig.add_axes([0,0,1,1])
 # ax.plot(x,y)
@@ -70,7 +82,7 @@ y = x**2
 
 # fig.savefig('my_sample.png')
 
-import matplotlib.image as mpimg
+# import matplotlib.image as mpimg
 # plt.imshow(mpimg.imread('my_sample.png'))
 
 # fig = plt.figure(figsize=(8,6), dpi=60)
@@ -128,7 +140,7 @@ my_data = pd.read_csv('./nations.csv')
 my_data['gdp_percap'].fillna(my_data['gdp_percap'].median(), inplace=True)
 print(my_data.head())
 print(my_data.groupby(['country']).mean())
-
+#
 avg_gdp_percap = my_data.groupby(['country']).mean()['gdp_percap']
 top_five_countries = avg_gdp_percap.sort_values(ascending=False).head()
 china = my_data[my_data['country'] == 'Macao SAR, China']
@@ -188,9 +200,9 @@ print(china.describe())
 # plt.legend(['Population', 'GDP', 'GDP Per Capita'], loc=4)
 # plt.show()
 
-qt = my_data[my_data['country'] == 'Qatar']
-
-plt.bar(qt['year'], qt['gdp_percap'])
-plt.bar(china['year'], china['gdp_percap'])
-plt.legend(['Population', 'GDP'])
-plt.show()
+# qt = my_data[my_data['country'] == 'Qatar']
+#
+# plt.bar(qt['year'], qt['gdp_percap'])
+# plt.bar(china['year'], china['gdp_percap'])
+# plt.legend(['Population', 'GDP'])
+# plt.show()

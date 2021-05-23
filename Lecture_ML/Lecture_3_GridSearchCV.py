@@ -10,6 +10,7 @@ iris_data = iris.data
 x_train, X_test, y_train, y_test\
     = train_test_split(iris.data, iris.target, test_size=0.2, random_state=121)
 dtree = DecisionTreeClassifier()
+dtree = DecisionTreeClassifier(max_depth=3, min_samples_split=3)
 
 parameters = {'max_depth':[1,2,3], 'min_samples_split':[2,3]}
 import pandas as pd

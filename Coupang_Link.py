@@ -68,7 +68,7 @@ def Get_CoupangAPI_Deeplink(GET_ACCESS_KEY, GET_SECRET_KEY,REQUEST_URL):
 
 Coupang_link('f367c021-7514-463c-b8c2-44f1d9031a4b',
              '813ea4854bca9a18365fae579c170cb980e9dda4',
-             'https://dmall.co.kr/board/event/read2.html?no=28107&board_no=2&category_no=1&cate_no=1&page=')
+             'https://www.coupang.com/np/products/brand-shop?brandName=%EC%9D%B8%EB%B0%94%EB%94%94')
 
 # http://me2.do/xy2AhDjC #애플
 # http://me2.do/5lop26SJ 하이뮨 셀렉스

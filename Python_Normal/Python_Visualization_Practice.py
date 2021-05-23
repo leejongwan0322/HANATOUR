@@ -22,10 +22,11 @@ numcols = [
     'Stamina',
     'Value',
     'Wage']
-catcols = ['Name','Club','Nationality','Preferred Foot','Position','Body Type']
-player_df = player_df[numcols+ catcols]
-print(player_df.head(5))
 
+catcols = ['Name','Club','Nationality','Preferred Foot','Position','Body Type']
+print(numcols+catcols)
+player_df = player_df[numcols+catcols]
+print(player_df.head(5))
 
 def wage_split(x):
     try:
@@ -53,6 +54,18 @@ sns.despine()
 g.figure.set_size_inches(14, 10)
 player_df = player_df.fillna(0)
 plt.show()
+
+# import pandas as pd
+#
+# dataframe=pd.DataFrame({'Attendance': {0: 60, 1: 100, 2: 80,3: 78,4: 95},
+#                         'Name': {0: 'Olivia', 1: 'John', 2: 'Laura',3: 'Ben',4: 'Kevin'},
+#                         'Obtained Marks': {0: 90, 1: 75, 2: 82, 3: 64, 4: 45}})
+# print("The Original Data frame is: \n")
+# print(dataframe)
+#
+# dataframe1 = dataframe.corr()
+# print("The Correlation Matrix is: \n")
+# print(dataframe1)
 
 #Pairplots
 filtered_player_df = player_df[(player_df['Club'].isin(['FC Barcelona', 'Paris Saint-Germain','Manchester United', 'Manchester City', 'Chelsea', 'Real Madrid','FC Porto','FC Bayern München'])) &
