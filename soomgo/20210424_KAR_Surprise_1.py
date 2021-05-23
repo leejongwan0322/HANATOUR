@@ -5,10 +5,10 @@ from surprise.model_selection import train_test_split
 
 data = Dataset.load_builtin('ml-100k')
 trainset, testset = train_test_split(data, test_size=25, random_state=52)
-# print('type--\n', type(testset))
-# print('len--\n',len(testset))
-# print('value--\n',testset)
-# print('value top5--\n',testset[:5])
+print('type--\n', type(testset))
+print('len--\n',len(testset))
+print('value--\n',testset)
+print('value top5--\n',testset[:5])
 
 algo = SVD()
 algo.fit(trainset)
