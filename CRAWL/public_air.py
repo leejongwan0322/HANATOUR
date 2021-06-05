@@ -4,22 +4,21 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import bs4
 
-url ="http://apis.data.go.kr/B552584/ArpltnInforInqireSvc"
-service_key = "gFDGoRbB6Z0x2falXDyAJ8GotJr14tHzgvYUPbTjOuHFrhFiLpP+DrOGqtrvnP2UxwK+Ij3nS82G7zkL21AV2g=="
+url ="http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty"
+service_key = "gFDGoRbB6Z0x2falXDyAJ8GotJr14tHzgvYUPbTjOuHFrhFiLpP%2BDrOGqtrvnP2UxwK%2BIj3nS82G7zkL21AV2g%3D%3D"
 
-base_date = ["202007","202008","202009"]
-
+base_date = ["종로구","중구"]
 
 for i in range(len(base_date)):
 
     gu_code = '11545' ##구 단위로 데이터를 확보하는 것. ex)11545 = 금천구
-    payload = "serviceKey=" + service_key + "&"+"LAWD_CD=" + gu_code + "&"+"DEAL_YMD=" + base_date[i]+ "&"
-
+    payload = "?serviceKey=" + service_key + "&"+"returnType=xml&numOfRows=100000&pageNo=1&dataTerm=3MONTH&&ver=1.0&stationName=" + base_date[i]
     res = requests.get(url + payload).text
     xmlobj = bs4.BeautifulSoup(res, 'lxml-xml')
     rows = xmlobj.findAll('item')
-    # print(rows)
+    print(rows)
 
+    # exit()
     rowList = []
     nameList = []
     columnList = []
