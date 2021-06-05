@@ -7,6 +7,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_a
 from sklearn.metrics import f1_score, confusion_matrix, precision_recall_curve, roc_curve
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import Binarizer
 import Common_Module.CMStat as CMStat
 import Common_Module.CMPlot as CMPlot
 
@@ -53,4 +54,10 @@ pred_proba = lr_clf.predict_proba(X_test)[:,1]
 CMStat.get_clf_eval(y_test, pred)
 thresholds = [0.3, 0.33, 0.36, 0.39, 0.42, 0.45, 0.48, 0.50]
 pred_proba = lr_clf.predict_proba(X_test)
-CMStat.get_eval_by_threshold(y_test, pred_proba[:,1].reshape(-1,1), thresholds)
+# CMStat.get_eval_by_threshold(y_test, pred_proba[:,1].reshape(-1,1), thresholds)
+
+#임곗값을 0.48로 설정한 Binarizer생성
+binarizer = Binarizer(threshold=0.48)
+pred_th_048 = binarizer.fit_transform(pred_proba[:,1].reshape(-1,1))
+CMStat.get_clf_eval(y_test, pred_th_048, pred_proba[:,1])
+

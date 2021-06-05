@@ -22,3 +22,4 @@ for i, feature in enumerate(lm_features):
     col = i%5
     sns.regplot(x=feature, y='PRICE', data=bostonDF, ax=axs[row][col])
 plt.show()
+

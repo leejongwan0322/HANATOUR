@@ -19,7 +19,7 @@ cancer = load_breast_cancer()
 # print('cancer''s keys: ', cancer.keys())
 
 data_df = pd.DataFrame(cancer.data, columns=cancer.feature_names)
-print(data_df)
+print(data_df.head())
 
 lr_clf = LogisticRegression(solver='lbfgs',class_weight='balanced', max_iter=10000)
 knn_clf = KNeighborsClassifier(n_neighbors=8)
